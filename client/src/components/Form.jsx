@@ -1,7 +1,8 @@
 import React from "react";
 import { useFormik } from "formik";
+import { signUpSchema } from "../schemas";
 
-const intialValues = {
+const initialValues = {
   name: "",
   email: "",
   mobile: "",
@@ -14,6 +15,7 @@ function Form() {
   const { values, errors, touched, handleBlur, handleChange, HandleSubmit } =
     useFormik({
       initialValues: initialValues,
+      validationSchema: signUpSchema,
       onSubmit: (values, action) => {
         console.log("The values are: ", values);
         action.resetForm();
@@ -24,7 +26,7 @@ function Form() {
       <div>
         <h1>This is a Form with Validation from Frontend and Backend</h1>
         <div>
-          <form>
+          <form onSubmit={HandleSubmit}>
             <div>
               <label>Name:</label>
               <input
@@ -117,6 +119,9 @@ function Form() {
                 {errors.address && touched.address ? (
                   <p>{errors.address}</p>
                 ) : null}
+              </div>
+              <div>
+                <button type="submit">Registration</button>
               </div>
             </div>
           </form>
